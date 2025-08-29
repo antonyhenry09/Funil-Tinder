@@ -1136,7 +1136,7 @@ export default function SigiloX() {
       
       const name = getUniqueItem(names, usedNames);
       const profileImage = getUniqueItem(photoArray, usedImages);
-      const age = Math.floor(Math.random() * 7) + (parseInt(profileAgeRange.split("-")[0]) || 25);
+      const age = Math.floor(Math.random() * 7) + (Number.parseInt(profileAgeRange.split("-")[0]) || 25);
 
       profiles.push({
         name,
@@ -1283,6 +1283,15 @@ export default function SigiloX() {
               exit={{ opacity: 0 }}
               className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] relative overflow-hidden"
             >
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-15"
+                style={{
+                  backgroundImage: "url('/images/woman-background.png')",
+                  backgroundPosition: "center right",
+                  backgroundSize: "cover"
+                }}
+              />
+              
               {/* Matrix Background - Reduced for mobile performance */}
               <div className="absolute inset-0 opacity-10 sm:opacity-20">
                 {matrixCodes.slice(0, 15).map((code, index) => (
@@ -1541,7 +1550,7 @@ export default function SigiloX() {
                           className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0 border-2 border-gray-200 shadow-sm"
                           onError={(e) => {
                             e.currentTarget.src =
-                              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80"
+                              "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80"
                           }}
                         />
                         <div className="flex-1 min-w-0 text-left">
@@ -2428,7 +2437,7 @@ export default function SigiloX() {
                     <div className="bg-gradient-to-r from-red-500 to-red-600 text-white p-4 sm:p-6 rounded-xl shadow-lg mb-4 sm:mb-6">
                       <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3">
                         <AlertTriangle className="w-6 h-6 sm:w-8 sm:h-8 animate-pulse" />
-                        <span className="font-bold text-lg sm:text-xl">THE REPORT WILL BE DELETED IN:</span>
+                        <span className="font-bold text-lg sm:text-xl">REPORT EXPIRES IN:</span>
                       </div>
                       <div className="text-center mb-3">
                         <div className="text-3xl sm:text-4xl font-bold mb-2">{formatTime(timeLeft)}</div>
@@ -2453,194 +2462,4 @@ export default function SigiloX() {
                     <div className="bg-gray-50 rounded-xl p-4 sm:p-6">
                       <div className="flex items-start gap-3 sm:gap-4">
                         <img
-                          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDB8MHx8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                          alt="Sarah M."
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover border-2 border-gray-200"
-                        />
-                        <div className="flex-1 text-left">
-                          <div className="mb-2">
-                            <p className="font-bold text-[#333333] text-sm sm:text-base">Sarah M.</p>
-                            <p className="text-xs sm:text-sm text-green-600 font-medium">✓ Verified User</p>
-                          </div>
-                          <p className="text-sm sm:text-base text-gray-600 italic leading-relaxed">
-                            "I wish I had done this months ago. Would have saved me so much anxiety and wasted time."
-                          </p>
-                          <div className="flex items-center text-[#FFD700] text-sm mt-2">
-                            <span>⭐⭐⭐⭐⭐</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {isProfileModalOpen && selectedProfile && (
-                  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-                    <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-                      {/* Header with close button */}
-                      <div className="relative">
-                        <button
-                          onClick={closeProfileModal}
-                          className="absolute top-4 left-4 z-10 w-10 h-10 bg-white bg-opacity-80 rounded-full flex items-center justify-center shadow-lg"
-                        >
-                          <X className="w-5 h-5 text-gray-700" />
-                        </button>
-
-                        {/* Profile Image */}
-                        <div className="relative h-96 bg-gray-200 rounded-t-2xl overflow-hidden">
-                          <img
-                            src={selectedProfile.image || "/placeholder.svg"}
-                            alt={selectedProfile.name}
-                            className="w-full h-full object-cover"
-                          />
-
-                          {/* Gradient overlay */}
-                          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/60 to-transparent"></div>
-
-                          {/* Name and basic info overlay */}
-                          <div className="absolute bottom-4 left-4 right-4 text-white">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h2 className="text-3xl font-bold">{selectedProfile.name}</h2>
-                              {selectedProfile.verified && (
-                                <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="flex items-center gap-4 text-sm opacity-90">
-                              <div className="flex items-center gap-1">
-                                <User className="w-4 h-4" />
-                                <span>{selectedProfile.orientation}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <MapPin className="w-4 h-4" />
-                                <span>{selectedProfile.location}</span>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center gap-1 text-sm opacity-90 mt-1">
-                              <MapPin className="w-4 h-4" />
-                              <span>{selectedProfile.distance}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Profile Content */}
-                      <div className="p-6 space-y-6">
-                        {/* About Me Section */}
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3">About Me</h3>
-                          <p className="text-gray-700 leading-relaxed">{selectedProfile.bio}</p>
-                        </div>
-
-                        {/* Personality Tags */}
-                        {selectedProfile.personality && (
-                          <div>
-                            <div className="flex flex-wrap gap-2">
-                              {selectedProfile.personality.map((tag: string, index: number) => (
-                                <span
-                                  key={index}
-                                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
-                                >
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* My Interests Section */}
-                        {selectedProfile.interests && (
-                          <div>
-                            <h3 className="text-xl font-bold text-gray-900 mb-3">My Interests</h3>
-                            <div className="flex flex-wrap gap-2">
-                              {selectedProfile.interests.map((interest: string, index: number) => (
-                                <span
-                                  key={index}
-                                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-300"
-                                >
-                                  {interest}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Action Buttons */}
-                        <div className="flex gap-4 pt-4">
-                          <button className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors">
-                            Pass
-                          </button>
-                          <button className="flex-1 bg-gradient-to-r from-pink-500 to-red-500 text-white py-3 rounded-full font-semibold hover:bg-pink-600 hover:to-red-600 transition-colors">
-                            Like
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </motion.div>
-          )}
-
-          {/* Offer Page */}
-          {currentStep === "offer" && (
-            <motion.div key="offer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-gradient-to-br from-[#1C2833] to-[#6C63FF] px-4 py-6 sm:py-8" >
-              <div className="container mx-auto max-w-2xl">
-                <Card className="bg-white rounded-2xl shadow-lg border-0">
-                  <CardContent className="p-6 sm:p-8 text-center">
-                    {/* Header */}
-                    <div className="mb-6 sm:mb-8">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 shadow-lg">
-                        <Heart className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
-                      </div>
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#333333] mb-3 sm:mb-4"> You Deserve to Know the Whole Truth </h1>
-                      <p className="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6 leading-relaxed"> Stop wondering. Stop losing sleep. Get every detail - completely confidential. </p>
-                      <div className="bg-gradient-to-r from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-4 sm:p-6">
-                        <p className="text-sm sm:text-base text-red-700 font-semibold leading-relaxed"> Your instincts were right. Now see exactly what they've been hiding while looking you in the eye and lying. </p>
-                      </div>
-                    </div>
-
-                    {/* Price Section */}
-                    <div className="mb-6 sm:mb-8">
-                      <div className="flex items-center justify-center gap-4 sm:gap-6 mb-4 sm:mb-6">
-                        <div className="text-2xl sm:text-3xl text-gray-400 line-through">$47.00</div>
-                        <div className="text-4xl sm:text-5xl font-bold text-[#FF0066]">$17.00</div>
-                      </div>
-                      <div className="inline-flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full text-sm sm:text-base font-bold mb-4"> 🔥 62% OFF - LIMITED TIME </div>
-                      <p className="text-sm sm:text-base text-gray-600 font-medium"> One-time payment for lifetime access to your complete report </p>
-                    </div>
-
-                    {/* What You'll Unlock */}
-                    <div className="text-left mb-6 sm:mb-8">
-                      <h3 className="text-lg sm:text-xl font-bold text-[#333333] mb-4 sm:mb-6 text-center"> What You'll Unlock: </h3>
-                      <div className="space-y-3 sm:space-y-4">
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium"> Every Single Profile Photo (including ones they think you'll never see) </span>
-                        </div>
-                        <div className="flex items-start gap-3 sm:gap-4">
-                          <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-500 flex-shrink-0 mt-1" />
-                          <span className="text-sm sm:text-base text-gray-700 font-medium"> Complete Conversation History (see exactly what they're telling other people) </span>
-                        </div>
-                      </div>
-                    </div>
-
-                  </CardContent>
-                </Card>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  )
-}
+                          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fGVufDB\
